@@ -35,7 +35,7 @@ namespace DigitalWellbeing.Tracker.Helpers
                 return parts[^1].Trim();
             }
 
-            return windowTitle;
+            return windowTitle.Trim();
         }
     }
 }

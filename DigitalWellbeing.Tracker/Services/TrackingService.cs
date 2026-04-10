@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DigitalWellbeing.Tracker.Helpers;
+using DigitalWellbeing.Tracker.Models;
+using DigitalWellbeing.Tracker.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using DigitalWellbeing.Tracker.Models;
-using DigitalWellbeing.Tracker.Helpers;
 
 namespace DigitalWellbeing.Tracker.Services
 {
@@ -11,11 +12,24 @@ namespace DigitalWellbeing.Tracker.Services
     {
         private string currentApp = "";
         private DateTime startTime;
-        private List<AppUsage> usageList = new List<AppUsage>();
+        
+        private readonly IAppUsageRepository _repository;
 
+        public TrackingService()
+        {
+            _repository = new AppUsageRepository();
+        }
         public void StartTracking()
         {
             Console.WriteLine("Tracking started...\n");
+
+            Console.CancelKeyPress += (sender, e) =>
+            {
+                e.Cancel = true; // prevent abrupt termination
+                Console.WriteLine("\nStopping tracking...");
+                SaveSession();
+                Environment.Exit(0);
+            };
 
             while (true)
             {
@@ -55,18 +69,20 @@ namespace DigitalWellbeing.Tracker.Services
                 DurationSeconds = duration
             };
 
-            usageList.Add(usage);
+            _repository.Add(usage); // 🔥 save to DB
 
-            Console.WriteLine($"Saved: {currentApp} → {duration} sec");
+            Console.WriteLine($"Saved to DB: {currentApp} → {duration} sec");
 
             PrintSummary();
         }
 
         private void PrintSummary()
         {
-            Console.WriteLine("\n--- Usage Summary ---");
+            Console.WriteLine("\n--- Usage Summary (DB) ---");
 
-            var summary = usageList
+            var data = _repository.GetAll();
+
+            var summary = data
                 .GroupBy(x => x.AppName)
                 .Select(g => new
                 {
@@ -79,7 +95,7 @@ namespace DigitalWellbeing.Tracker.Services
                 Console.WriteLine($"{item.AppName} → {item.TotalTime} sec");
             }
 
-            Console.WriteLine("---------------------\n");
+            Console.WriteLine("--------------------------\n");
         }
     }
 }
