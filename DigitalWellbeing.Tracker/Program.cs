@@ -70,7 +70,7 @@ class Program
         return null;
     }
 
-    // Basic cleanup of app name
+    // Basic cleanup of app name //
     static string ExtractAppName(string windowTitle)
     {
         if (windowTitle.Contains("-"))
