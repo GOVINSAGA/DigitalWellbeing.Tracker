@@ -11,6 +11,7 @@ namespace DigitalWellbeing.Tracker.Repositories
         {
             _context = new AppDbContext();
             _context.Database.EnsureCreated(); // create DB if not exists
+            
         }
 
         public void Add(AppUsage usage)

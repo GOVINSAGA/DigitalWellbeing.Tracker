@@ -8,6 +8,7 @@ namespace DigitalWellbeing.Tracker.Data
         public DbSet<AppUsage> AppUsages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=usage.db");
+    => options.UseSqlServer(
+        "Server=(localdb)\\MSSQLLocalDB;Database=DigitalWellbeingDB;Trusted_Connection=True;");
     }
 }
