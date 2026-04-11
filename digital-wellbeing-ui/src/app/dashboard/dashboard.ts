@@ -44,7 +44,12 @@ export class Dashboard implements OnInit {
           datasets: [{
             label: 'Time (minutes)',
             data: values
-          }]
+          },
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
         }
       });
 
@@ -56,6 +61,10 @@ export class Dashboard implements OnInit {
           datasets: [{
             data: values
           }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
         }
       });
     });

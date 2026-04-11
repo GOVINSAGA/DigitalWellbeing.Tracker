@@ -21,11 +21,21 @@ h1 {
 
 .charts {
   display: flex;
-  justify-content: space-around;
-  gap: 20px;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.chart-box {
+  width: 450px;
+  height: 300px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 canvas {
-  width: 45% !important;
-  height: 300px !important;
+  width: 100% !important;
+  height: 100% !important;
 }
