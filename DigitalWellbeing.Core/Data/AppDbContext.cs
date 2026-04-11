@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using DigitalWellbeing.API.Models;
+using DigitalWellbeing.Core.Models;
 
-namespace DigitalWellbeing.API.Data
+namespace DigitalWellbeing.Core.Data
 {
     public class AppDbContext : DbContext
     {

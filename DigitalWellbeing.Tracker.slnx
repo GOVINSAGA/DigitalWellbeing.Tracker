@@ -21,5 +21,6 @@
     </Properties>
   </Project>
   <Project Path="DigitalWellbeing.API/DigitalWellbeing.API.csproj" Id="af2636eb-f60f-4766-b1e2-e50f5c3fad01" />
+  <Project Path="DigitalWellbeing.Core/DigitalWellbeing.Core.csproj" Id="c08c12db-7eac-48b9-84d1-d37e27c4de97" />
   <Project Path="DigitalWellbeing.Tracker/DigitalWellbeing.Tracker.csproj" />
 </Solution>

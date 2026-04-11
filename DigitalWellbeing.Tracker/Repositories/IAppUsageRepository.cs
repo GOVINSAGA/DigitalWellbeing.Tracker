@@ -1,4 +1,5 @@
-﻿using DigitalWellbeing.Tracker.Models;
+﻿using DigitalWellbeing.Core.Models;
+
 
 namespace DigitalWellbeing.Tracker.Repositories
 {

@@ -1,4 +1,5 @@
-using DigitalWellbeing.API.Data;
+
+using DigitalWellbeing.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

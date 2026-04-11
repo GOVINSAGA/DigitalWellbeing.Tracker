@@ -1,5 +1,6 @@
 ﻿using DigitalWellbeing.Tracker.Helpers;
-using DigitalWellbeing.Tracker.Models;
+using DigitalWellbeing.Core.Models;
+
 using DigitalWellbeing.Tracker.Repositories;
 using System;
 using System.Collections.Generic;

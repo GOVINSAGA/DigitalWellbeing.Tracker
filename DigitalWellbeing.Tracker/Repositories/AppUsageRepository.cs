@@ -1,5 +1,6 @@
-﻿using DigitalWellbeing.Tracker.Data;
-using DigitalWellbeing.Tracker.Models;
+﻿using DigitalWellbeing.Core.Data;
+using DigitalWellbeing.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitalWellbeing.Tracker.Repositories
 {
@@ -9,7 +10,11 @@ namespace DigitalWellbeing.Tracker.Repositories
 
         public AppUsageRepository()
         {
-            _context = new AppDbContext();
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+    .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=DigitalWellbeingDB;Trusted_Connection=True;")
+    .Options;
+
+            _context = new AppDbContext(options);
             _context.Database.EnsureCreated(); // create DB if not exists
             
         }

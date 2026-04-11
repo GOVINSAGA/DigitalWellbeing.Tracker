@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DigitalWellbeing.API.Data;
+
+using DigitalWellbeing.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalWellbeing.API.Controllers
