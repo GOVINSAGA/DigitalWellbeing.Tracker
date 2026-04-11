@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="DigitalWellbeing.API/DigitalWellbeing.API.csproj" Id="af2636eb-f60f-4766-b1e2-e50f5c3fad01" />
   <Project Path="DigitalWellbeing.Tracker/DigitalWellbeing.Tracker.csproj" />
 </Solution>

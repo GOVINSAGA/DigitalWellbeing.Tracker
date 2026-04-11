@@ -1,0 +1,6 @@
+@DigitalWellbeing.API_HostAddress = http://localhost:5093
+
+GET {{DigitalWellbeing.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
