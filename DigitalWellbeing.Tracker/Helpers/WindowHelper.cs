@@ -29,9 +29,20 @@ namespace DigitalWellbeing.Tracker.Helpers
 
         public static string ExtractAppName(string windowTitle)
         {
+            if (string.IsNullOrWhiteSpace(windowTitle))
+                return "Unknown";
+
+            // Case 1: Chrome-like titles
             if (windowTitle.Contains("-"))
             {
                 var parts = windowTitle.Split('-');
+                return parts[^1].Trim();
+            }
+
+            // Case 2: File paths
+            if (windowTitle.Contains("\\"))
+            {
+                var parts = windowTitle.Split('\\');
                 return parts[^1].Trim();
             }
 
