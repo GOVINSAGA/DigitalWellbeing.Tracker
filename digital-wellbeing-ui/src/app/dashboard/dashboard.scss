@@ -1,0 +1,31 @@
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.charts {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+canvas {
+  width: 45% !important;
+  height: 300px !important;
+}

@@ -1,3 +1,20 @@
-<h2>App Usage Dashboard</h2>
+<h1>Digital Wellbeing Dashboard</h1>
 
-<canvas id="usageChart"></canvas>
+<!-- Summary Cards -->
+<div class="cards">
+  <div class="card">
+    <h3>Total Time</h3>
+    <p>{{ (totalTime / 60).toFixed(2) }} min</p>
+  </div>
+
+  <div class="card">
+    <h3>Top App</h3>
+    <p>{{ topApp }}</p>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="charts">
+  <canvas id="barChart"></canvas>
+  <canvas id="pieChart"></canvas>
+</div>
