@@ -17,4 +17,8 @@ export class UsageService {
   getAll() {
     return this.http.get<any[]>(`${this.baseUrl}/all`);
   }
+
+  getTodayUsage() {
+    return this.http.get<any[]>(`${this.baseUrl}/today`);
+  }
 }

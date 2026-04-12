@@ -19,6 +19,32 @@ export class Dashboard implements OnInit {
 
   ngOnInit() {
     this.loadCharts();
+    this.loadTimeline();
+  }
+
+  loadTimeline() {
+    this.usageService.getTodayUsage().subscribe(data => {
+
+      const labels = data.map(x => `${x.hour}:00`);
+      const values = data.map(x => (x.totalTime / 60).toFixed(2));
+
+      new Chart("timelineChart", {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Usage (minutes)',
+            data: values,
+            fill: false,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+    });
   }
 
   loadCharts() {

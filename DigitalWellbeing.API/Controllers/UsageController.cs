@@ -40,17 +40,42 @@ namespace DigitalWellbeing.API.Controllers
             return Ok(summary);
         }
 
-        // GET: api/usage/daily
-        [HttpGet("daily")]
+        //// GET: api/usage/daily
+        //[HttpGet("daily")]
+        //public async Task<IActionResult> GetToday()
+        //{
+        //    var today = DateTime.Today;
+
+        //    var data = await _context.AppUsages
+        //        .Where(x => x.StartTime.Date == today)
+        //        .ToListAsync();
+
+        //    return Ok(data);
+        //}
+
+
+        // GET: api/usage/today
+        [HttpGet("today")]
         public async Task<IActionResult> GetToday()
         {
             var today = DateTime.Today;
+            var tomorrow = today.AddDays(1);
 
             var data = await _context.AppUsages
-                .Where(x => x.StartTime.Date == today)
+                .Where(x => x.StartTime >= today && x.StartTime < tomorrow)
                 .ToListAsync();
 
-            return Ok(data);
+            var hourly = data
+                .GroupBy(x => x.StartTime.Hour)
+                .Select(g => new
+                {
+                    Hour = g.Key,
+                    TotalTime = g.Sum(x => x.DurationSeconds)
+                })
+                .OrderBy(x => x.Hour)
+                .ToList();
+
+            return Ok(hourly);
         }
     }
 }

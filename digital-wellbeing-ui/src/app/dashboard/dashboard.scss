@@ -39,3 +39,23 @@ canvas {
   width: 100% !important;
   height: 100% !important;
 }
+
+.timeline-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.timeline-box {
+  width: 80%;
+  max-width: 900px;
+  height: 350px;
+  margin: 0 auto;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+  margin-bottom: 15px;
+}
