@@ -10,12 +10,12 @@ namespace DigitalWellbeing.API.Controllers
     public class UsageController : ControllerBase
     {
         private readonly AppDbContext _context;
-        private readonly GeminiService _gemini;
+        private readonly NvidiaService _nvidia;
 
-        public UsageController(AppDbContext context, GeminiService gemini)
+        public UsageController(AppDbContext context, NvidiaService nvidia)
         {
             _context = context;
-            _gemini = gemini;
+            _nvidia = nvidia;
         }
 
         // GET: api/usage/all
@@ -93,7 +93,7 @@ namespace DigitalWellbeing.API.Controllers
                 .ToListAsync();
 
             if (!data.Any())
-                return Ok(new { message = "No insights generated." });
+                return Ok(new { message = "No usage data available." });
 
             var summary = data
                 .GroupBy(x => x.AppName)
@@ -103,22 +103,21 @@ namespace DigitalWellbeing.API.Controllers
                     Time = g.Sum(x => x.DurationSeconds) / 60
                 });
 
-            // 👉 ADD THIS HERE
             var prompt = $@"
 You are an AI assistant analyzing digital wellbeing.
 
-App usage data (minutes):
+App usage (minutes):
 {string.Join("\n", summary.Select(x => $"{x.App}: {x.Time:F2}"))}
 
-Give 3 short insights:
-- Most used app
-- Behavior pattern
-- Suggestion
+Give:
+1. Most used app insight
+2. Behavior pattern
+3. Productivity suggestion
 
-Keep it simple.
+Keep it short and clear.
 ";
 
-            var aiResponse = await _gemini.GenerateInsights(prompt);
+            var aiResponse = await _nvidia.GenerateInsights(prompt);
 
             return Ok(new { message = aiResponse });
         }

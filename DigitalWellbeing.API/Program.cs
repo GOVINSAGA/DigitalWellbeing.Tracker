@@ -26,7 +26,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient<GeminiService>();
+builder.Services.AddHttpClient<NvidiaService>();
+//builder.Services.AddHttpClient<GeminiService>();
 
 var app = builder.Build();
 
