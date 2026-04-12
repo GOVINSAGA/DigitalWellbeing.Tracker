@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿using DigitalWellbeing.API.Services;
 using DigitalWellbeing.Core.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalWellbeing.API.Controllers
@@ -10,10 +10,12 @@ namespace DigitalWellbeing.API.Controllers
     public class UsageController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly GeminiService _gemini;
 
-        public UsageController(AppDbContext context)
+        public UsageController(AppDbContext context, GeminiService gemini)
         {
             _context = context;
+            _gemini = gemini;
         }
 
         // GET: api/usage/all
@@ -80,8 +82,8 @@ namespace DigitalWellbeing.API.Controllers
 
 
         // GET: api/usage/insights
-        [HttpGet("insights")]
-        public async Task<IActionResult> GetInsights()
+        [HttpGet("ai-insights")]
+        public async Task<IActionResult> GetAIInsights()
         {
             var today = DateTime.Today;
             var tomorrow = today.AddDays(1);
@@ -91,31 +93,34 @@ namespace DigitalWellbeing.API.Controllers
                 .ToListAsync();
 
             if (!data.Any())
-                return Ok(new List<string> { "No usage data available today." });
+                return Ok(new { message = "No insights generated." });
 
-            var insights = new List<string>();
-
-            // 🔥 1. Most used app
-            var topApp = data
+            var summary = data
                 .GroupBy(x => x.AppName)
-                .OrderByDescending(g => g.Sum(x => x.DurationSeconds))
-                .First();
+                .Select(g => new
+                {
+                    App = g.Key,
+                    Time = g.Sum(x => x.DurationSeconds) / 60
+                });
 
-            insights.Add($"You spent most time on {topApp.Key}");
+            // 👉 ADD THIS HERE
+            var prompt = $@"
+You are an AI assistant analyzing digital wellbeing.
 
-            // 🔥 2. Total usage
-            var totalTime = data.Sum(x => x.DurationSeconds);
-            insights.Add($"Total usage today is {(totalTime / 60):0.0} minutes");
+App usage data (minutes):
+{string.Join("\n", summary.Select(x => $"{x.App}: {x.Time:F2}"))}
 
-            // 🔥 3. Peak hour
-            var peakHour = data
-                .GroupBy(x => x.StartTime.Hour)
-                .OrderByDescending(g => g.Sum(x => x.DurationSeconds))
-                .First();
+Give 3 short insights:
+- Most used app
+- Behavior pattern
+- Suggestion
 
-            insights.Add($"You were most active around {peakHour.Key}:00");
+Keep it simple.
+";
 
-            return Ok(insights);
+            var aiResponse = await _gemini.GenerateInsights(prompt);
+
+            return Ok(new { message = aiResponse });
         }
 
 

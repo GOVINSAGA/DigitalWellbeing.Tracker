@@ -1,5 +1,11 @@
 <h1>Digital Wellbeing Dashboard</h1>
 
+<h2>AI Powered Insights</h2>
+
+<div class="insight-card">
+  {{ aiInsights }}
+</div>
+
 <!-- Summary Cards -->
 <div class="cards">
   <div class="card">
@@ -12,6 +18,9 @@
     <p>{{ topApp }}</p>
   </div>
 </div>
+
+
+
 
 <!-- Charts -->
 <div class="charts">
@@ -40,10 +49,5 @@
 </div>
 
 
-<h2>AI Insights</h2>
 
-<div class="insights">
-  <div *ngFor="let insight of insights" class="insight-card">
-    {{ insight }}
-  </div>
-</div>
+

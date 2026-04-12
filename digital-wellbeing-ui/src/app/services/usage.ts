@@ -22,7 +22,9 @@ export class UsageService {
     return this.http.get<any[]>(`${this.baseUrl}/today`);
   }
 
-  getInsights() {
-    return this.http.get<string[]>(`${this.baseUrl}/insights`);
+  
+
+  getAIInsights() {
+    return this.http.get<any>(`${this.baseUrl}/ai-insights`);
   }
 }

@@ -21,12 +21,14 @@ export class Dashboard implements OnInit {
   ngOnInit() {
     this.loadCharts();
     this.loadTimeline();
-    this.loadInsights();
+    this.loadAIInsights();
   }
 
-  loadInsights() {
-    this.usageService.getInsights().subscribe(data => {
-      this.insights = data;
+  aiInsights = '';
+
+  loadAIInsights() {
+    this.usageService.getAIInsights().subscribe(data => {
+      this.aiInsights = data.message;
     });
   }
 
