@@ -14,12 +14,20 @@ export class Dashboard implements OnInit {
 
   totalTime = 0;
   topApp = '';
+  insights: string[] = [];
 
   constructor(private usageService: UsageService) { }
 
   ngOnInit() {
     this.loadCharts();
     this.loadTimeline();
+    this.loadInsights();
+  }
+
+  loadInsights() {
+    this.usageService.getInsights().subscribe(data => {
+      this.insights = data;
+    });
   }
 
   loadTimeline() {

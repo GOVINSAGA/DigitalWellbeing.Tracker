@@ -31,11 +31,19 @@
   <h2>Daily Timeline</h2>
   <canvas id="timelineChart"></canvas>
 </div>-->
-
 <!-- Timeline Section (Separate) -->
 <div class="timeline-section">
   <h2>Daily Timeline</h2>
   <div class="timeline-box">
     <canvas id="timelineChart"></canvas>
+  </div>
+</div>
+
+
+<h2>AI Insights</h2>
+
+<div class="insights">
+  <div *ngFor="let insight of insights" class="insight-card">
+    {{ insight }}
   </div>
 </div>

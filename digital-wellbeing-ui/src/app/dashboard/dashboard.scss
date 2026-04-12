@@ -59,3 +59,18 @@ canvas {
 h2 {
   margin-bottom: 15px;
 }
+
+.insights {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.insight-card {
+  background: #eef6ff;
+  padding: 12px;
+  border-left: 5px solid #007bff;
+  border-radius: 5px;
+  font-size: 16px;
+}

@@ -77,5 +77,47 @@ namespace DigitalWellbeing.API.Controllers
 
             return Ok(hourly);
         }
+
+
+        // GET: api/usage/insights
+        [HttpGet("insights")]
+        public async Task<IActionResult> GetInsights()
+        {
+            var today = DateTime.Today;
+            var tomorrow = today.AddDays(1);
+
+            var data = await _context.AppUsages
+                .Where(x => x.StartTime >= today && x.StartTime < tomorrow)
+                .ToListAsync();
+
+            if (!data.Any())
+                return Ok(new List<string> { "No usage data available today." });
+
+            var insights = new List<string>();
+
+            // 🔥 1. Most used app
+            var topApp = data
+                .GroupBy(x => x.AppName)
+                .OrderByDescending(g => g.Sum(x => x.DurationSeconds))
+                .First();
+
+            insights.Add($"You spent most time on {topApp.Key}");
+
+            // 🔥 2. Total usage
+            var totalTime = data.Sum(x => x.DurationSeconds);
+            insights.Add($"Total usage today is {(totalTime / 60):0.0} minutes");
+
+            // 🔥 3. Peak hour
+            var peakHour = data
+                .GroupBy(x => x.StartTime.Hour)
+                .OrderByDescending(g => g.Sum(x => x.DurationSeconds))
+                .First();
+
+            insights.Add($"You were most active around {peakHour.Key}:00");
+
+            return Ok(insights);
+        }
+
+
     }
 }

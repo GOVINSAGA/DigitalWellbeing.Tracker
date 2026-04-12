@@ -21,4 +21,8 @@ export class UsageService {
   getTodayUsage() {
     return this.http.get<any[]>(`${this.baseUrl}/today`);
   }
+
+  getInsights() {
+    return this.http.get<string[]>(`${this.baseUrl}/insights`);
+  }
 }
